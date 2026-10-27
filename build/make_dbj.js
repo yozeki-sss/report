@@ -2,8 +2,8 @@ const pptxgen = require("pptxgenjs");
 const { applyTheme } = require("/root/.claude/skills/synced/fed45bdf-403d-427c-9870-2efc96bd5d85_ba498201-fc8b-4d1a-bc58-a10d7624274f/pptx/scripts/apply_theme.js");
 
 const THEME = { name: "DBJ IT Shindan Proposal", headFontFace: "Yu Gothic", bodyFontFace: "Yu Gothic",
-  colors: { dk1: "22313A", lt1: "FFFFFF", dk2: "0B4F5C", lt2: "EEF4F5", accent1: "0B7285", accent2: "E8A33D",
-    accent3: "2E8B6A", accent4: "C8473D", accent5: "6B7C85", accent6: "BFD6DA", hlink: "0B7285", folHlink: "6B7C85" } };
+  colors: { dk1: "333333", lt1: "FFFFFF", dk2: "1F3A5F", lt2: "F4F6F9", accent1: "1F3A5F", accent2: "5B7399",
+    accent3: "D5DCE8", accent4: "333333", accent5: "6B7280", accent6: "D9DDE3", hlink: "1F3A5F", folHlink: "6B7280" } };
 
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
@@ -12,14 +12,14 @@ pres.title = "IT診断サービス コンテンツ施策のご提案";
 const C = pres.SchemeColor;
 const FOOT = "IT診断サービス コンテンツ施策のご提案";
 
-pres.defineSlideMaster({ title: "COVER", background: { color: THEME.colors.dk2 }, objects: [] });
+pres.defineSlideMaster({ title: "COVER", background: { color: "FFFFFF" }, objects: [] });
 pres.defineSlideMaster({ title: "CONTENT", background: { color: "FFFFFF" },
   objects: [{ text: { text: FOOT, options: { x: 0.6, y: 7.05, w: 8, h: 0.3, fontSize: 10, color: C.accent5, margin: 0 } } }],
   slideNumber: { x: 12.1, y: 7.05, w: 0.6, h: 0.3, fontSize: 10, color: C.accent5, align: "right" } });
 
 function slide(title, section) {
   const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: section });
-  s.addText(title, { x: 0.6, y: 0.4, w: 12.1, h: 0.8, fontSize: 28, bold: true, color: C.text2, margin: 0, valign: "middle", isTextBox: true, objectName: "Title" });
+  s.addText(title, { x: 0.6, y: 0.4, w: 12.1, h: 0.8, fontSize: 28, bold: true, color: C.text1, margin: 0, valign: "middle", isTextBox: true, objectName: "Title" });
   return s;
 }
 function bullets(arr) { return arr.map((t, i) => ({ text: t, options: { bullet: true, breakLine: i < arr.length - 1 } })); }
@@ -36,10 +36,10 @@ function card(s, x, y, w, h, head, body, opt = {}) {
 // 1 cover
 pres.addSection({ title: "導入" });
 let s = pres.addSlide({ masterName: "COVER", sectionTitle: "導入" });
-s.addText("CONTENT MARKETING PROPOSAL", { x: 0.9, y: 1.4, w: 11, h: 0.4, fontSize: 14, bold: true, color: C.accent6, charSpacing: 4, margin: 0, isTextBox: true });
-s.addText("IT診断サービスの訴求に向けた\nコンテンツ施策のご提案", { x: 0.9, y: 2.0, w: 11.5, h: 1.9, fontSize: 40, bold: true, color: C.background1, margin: 0, valign: "top", isTextBox: true });
-s.addText("経営層向け「IT健康診断」チェックリスト（ホワイトペーパー）と、\n流入元となるコラム群の設計案", { x: 0.9, y: 4.2, w: 11.5, h: 1.0, fontSize: 18, color: C.accent6, margin: 0, valign: "top", isTextBox: true });
-s.addText("ご提案資料（案）　2026年10月", { x: 0.9, y: 6.3, w: 11, h: 0.4, fontSize: 14, color: C.background1, margin: 0, isTextBox: true });
+s.addText("CONTENT MARKETING PROPOSAL", { x: 0.9, y: 1.4, w: 11, h: 0.4, fontSize: 14, bold: true, color: C.accent1, charSpacing: 4, margin: 0, isTextBox: true });
+s.addText("IT診断サービスの訴求に向けた\nコンテンツ施策のご提案", { x: 0.9, y: 2.0, w: 11.5, h: 1.9, fontSize: 40, bold: true, color: C.text1, margin: 0, valign: "top", isTextBox: true });
+s.addText("経営層向け「IT健康診断」チェックリスト（ホワイトペーパー）と、\n流入元となるコラム群の設計案", { x: 0.9, y: 4.2, w: 11.5, h: 1.0, fontSize: 18, color: C.accent5, margin: 0, valign: "top", isTextBox: true });
+s.addText("ご提案資料（案）　2026年10月", { x: 0.9, y: 6.3, w: 11, h: 0.4, fontSize: 14, color: C.text1, margin: 0, isTextBox: true });
 
 // 2 persona
 pres.addSection({ title: "狙いと全体像" });
@@ -84,7 +84,7 @@ s.addTable([
   [cell("① IT投資が経営にどう効いているか説明できない"), cell("IT投資、IT戦略"), cell("投資（7問）", { bold: true })],
   [cell("② IT起因の経営リスクを把握できていない"), cell("ITリスク（セキュリティ・IT-BCP・内部統制）、IT調達（ベンダー依存）、ITオペレーション"), cell("リスク（7問）", { bold: true })],
   [cell("③ DXで他社に後れを取っていないか不安"), cell("IT戦略、IT組織/IT人材、アプリケーション、ITアーキテクチャ"), cell("競争力（7問）", { bold: true })],
-], { x: 0.6, y: 1.6, w: 12.1, colW: [4.0, 5.9, 2.2], rowH: [0.55, 1.0, 1.3, 1.1], border: { type: "solid", pt: 1, color: "BFD6DA" }, fill: { color: "FFFFFF" } });
+], { x: 0.6, y: 1.6, w: 12.1, colW: [4.0, 5.9, 2.2], rowH: [0.55, 1.0, 1.3, 1.1], border: { type: "solid", pt: 1, color: "D9DDE3" }, fill: { color: "FFFFFF" } });
 s.addText("結果が3軸で返るため、「どの悩みに、診断のどの領域で応えられるか」がそのまま営業トークになります。", { x: 0.6, y: 5.9, w: 12.1, h: 0.7, fontSize: 16, bold: true, color: C.text2, margin: 0, valign: "top", isTextBox: true });
 
 // 5 white paper
@@ -109,11 +109,11 @@ s = slide("チェックリストはYES/NOで答え、軸別に点数化する", 
   s.addText(k[1], { x, y: 2.4, w: 3.9, h: 0.45, fontSize: 14, color: C.text1, align: "center", valign: "middle", margin: 0, isTextBox: true });
 });
 s.addText("軸ごとの判定（各7点満点）", { x: 0.6, y: 3.25, w: 6, h: 0.45, fontSize: 18, bold: true, color: C.text2, margin: 0, isTextBox: true });
-[["5〜7点", "良好", C.accent3], ["3〜4点", "要注意", C.accent2], ["0〜2点", "要対応", C.accent4]].forEach((j, i) => {
+[["5〜7点", "良好", C.accent3, C.text1], ["3〜4点", "要注意", C.accent2, C.background1], ["0〜2点", "要対応", C.accent1, C.background1]].forEach((j, i) => {
   const x = 0.6 + i * 2.1;
   s.addShape(pres.ShapeType.rect, { x, y: 3.8, w: 1.95, h: 1.4, fill: { color: j[2] }, line: { color: j[2] }, objectName: "Grade" });
-  s.addText(j[0], { x, y: 3.9, w: 1.95, h: 0.6, fontSize: 20, bold: true, color: C.background1, align: "center", valign: "middle", margin: 0, isTextBox: true });
-  s.addText(j[1], { x, y: 4.5, w: 1.95, h: 0.5, fontSize: 16, bold: true, color: C.background1, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addText(j[0], { x, y: 3.9, w: 1.95, h: 0.6, fontSize: 20, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addText(j[1], { x, y: 4.5, w: 1.95, h: 0.5, fontSize: 16, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
 });
 s.addText("点数の区切りは暫定です。実際の診断案件の傾向をもとに調整します。", { x: 0.6, y: 5.4, w: 6.2, h: 0.5, fontSize: 12, color: C.accent5, margin: 0, valign: "top", isTextBox: true });
 card(s, 7.0, 3.25, 5.7, 3.4, "設計のポイント", bullets(["YES/NOで迷わないよう、設問は「文書がある」「直近1年以内に見直した」など事実で判定できる書き方にする", "見せるのは合計点より軸別の結果。何が弱いかが分かる", "致命的な項目（IT-BCP未整備など）がNOなら、点数に関係なく「最優先の確認事項」として警告する"]), { bs: 14 });
@@ -150,7 +150,7 @@ const rows = [
 s.addTable(rows.map((r, i) => r.map((t, j) => i === 0
   ? { text: t, options: { bold: true, color: "FFFFFF", fill: { color: THEME.colors.dk2 }, fontSize: 13, valign: "middle", align: j < 2 ? "center" : "left" } }
   : { text: t, options: { fontSize: 13, valign: "middle", color: THEME.colors.dk1, align: j < 2 ? "center" : "left", bold: j === 1 } }
-)), { x: 0.6, y: 1.4, w: 12.1, colW: [0.6, 1.2, 6.6, 3.7], rowH: [0.5, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58], border: { type: "solid", pt: 1, color: "BFD6DA" }, fill: { color: "FFFFFF" } });
+)), { x: 0.6, y: 1.4, w: 12.1, colW: [0.6, 1.2, 6.6, 3.7], rowH: [0.5, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58], border: { type: "solid", pt: 1, color: "D9DDE3" }, fill: { color: "FFFFFF" } });
 s.addText("各コラムの末尾に、該当軸の設問を2〜3問だけ抜粋して掲載し、WPの中身を想像できるようにします。検索意図は想定で、キーワード調査で検証します。", { x: 0.6, y: 6.2, w: 12.1, h: 0.7, fontSize: 13, color: C.text2, bold: true, margin: 0, valign: "top", isTextBox: true });
 
 // 9 roadmap
