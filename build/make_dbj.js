@@ -57,23 +57,28 @@ s.addText("想定ペルソナ：経営層（関心の軸は、経営リスク・
 });
 s.addText("※悩みは仮説です。営業・コンサルタントの方へのヒアリングで検証します。", { x: 0.6, y: 6.7, w: 12.1, h: 0.3, fontSize: 10, color: C.accent5, margin: 0, isTextBox: true });
 
-// 3 flow
-s = slide("コラムからWP、商談までを一本の導線でつなぐ", "狙いと全体像");
-[["コラム", "検索・SNSで経営層に出会う", "指標：PV、WPへのクリック率"],
- ["ホワイトペーパー", "10分のセルフチェックで現在地を知る", "指標：ダウンロード数"],
- ["結果の読み合わせ", "NOだった項目を30分で一緒に確認", "指標：実施率"],
- ["IT診断サービス", "2〜3カ月の診断へ進む", "指標：商談化数"]].forEach((f, i) => {
-  const x = 0.6 + i * 3.1;
-  s.addShape(pres.ShapeType.rect, { x, y: 1.9, w: 2.8, h: 3.6, fill: { color: i === 3 ? C.accent1 : C.background2 }, line: { color: i === 3 ? C.accent1 : C.background2 }, objectName: "Step" });
-  circle(s, x + 0.25, 2.15, 0.6, String(i + 1), i === 3 ? C.background1 : C.accent1, 18);
-  if (i === 3) s.addText("4", { x: x + 0.25, y: 2.15, w: 0.6, h: 0.6, fontSize: 18, bold: true, color: C.accent1, align: "center", valign: "middle", margin: 0, isTextBox: true });
-  const tc = i === 3 ? C.background1 : C.text1;
-  s.addText(f[0], { x: x + 0.25, y: 3.0, w: 2.3, h: 0.8, fontSize: 18, bold: true, color: tc, margin: 0, valign: "top", isTextBox: true });
-  s.addText(f[1], { x: x + 0.25, y: 3.85, w: 2.3, h: 0.9, fontSize: 14, color: tc, margin: 0, valign: "top", isTextBox: true });
-  s.addText(f[2], { x: x + 0.25, y: 4.8, w: 2.3, h: 0.6, fontSize: 12, color: i === 3 ? C.accent6 : C.accent5, margin: 0, valign: "top", isTextBox: true });
-  if (i < 3) s.addShape(pres.ShapeType.rightArrow, { x: x + 2.82, y: 3.5, w: 0.26, h: 0.4, fill: { color: C.accent5 }, line: { color: C.accent5 }, objectName: "Arrow" });
+// 3 usage
+s = slide("コンテンツの使い方：Webと営業、2つの入口からIT診断へ", "狙いと全体像");
+const lanes = [
+  ["Web", "検索・メルマガ", [["コラム／メルマガ", "コラムは検索で、メルマガは既存リードに届ける"], ["WPダウンロード", "10分のセルフチェックで現在地を知る"], ["問い合わせ", "結果をもとに問い合わせ、または営業からフォロー"]]],
+  ["営業", "商談・営業トーク", [["商談・営業トーク", "課題のヒアリング中に、WPを紹介する"], ["WPを一緒に記入", "営業用の版で、その場でチェックする"], ["結果の読み合わせ", "NOだった項目を30分で一緒に確認"]]],
+];
+lanes.forEach((ln, li) => {
+  const y = 1.6 + li * 2.1;
+  s.addShape(pres.ShapeType.rect, { x: 0.6, y, w: 1.7, h: 1.9, fill: { color: C.accent1 }, line: { color: C.accent1 }, objectName: "Lane" });
+  s.addText([{ text: ln[0], options: { fontSize: 22, bold: true, breakLine: true } }, { text: ln[1], options: { fontSize: 12 } }], { x: 0.6, y, w: 1.7, h: 1.9, color: C.background1, align: "center", valign: "middle", margin: 0.05, isTextBox: true });
+  ln[2].forEach((b, i) => {
+    const x = 2.55 + i * 2.7;
+    s.addShape(pres.ShapeType.rect, { x, y, w: 2.35, h: 1.9, fill: { color: C.background2 }, line: { color: C.background2 }, objectName: "Step" });
+    s.addText(b[0], { x: x + 0.2, y: y + 0.15, w: 1.95, h: 0.6, fontSize: 16, bold: true, color: C.text1, margin: 0, valign: "middle", isTextBox: true });
+    s.addText(b[1], { x: x + 0.2, y: y + 0.8, w: 1.95, h: 1.0, fontSize: 13, color: C.text1, margin: 0, valign: "top", isTextBox: true });
+    if (i < 2) s.addShape(pres.ShapeType.rightArrow, { x: x + 2.4, y: y + 0.78, w: 0.27, h: 0.4, fill: { color: C.accent5 }, line: { color: C.accent5 }, objectName: "Arrow" });
+  });
 });
-s.addText("営業が使える社内用の版（NO項目＝診断の仮説）も同時に用意し、問い合わせ前の会話にも使えるようにします。", { x: 0.6, y: 5.9, w: 12.1, h: 0.7, fontSize: 16, color: C.text2, bold: true, margin: 0, valign: "top", isTextBox: true });
+s.addShape(pres.ShapeType.rightArrow, { x: 10.45, y: 3.45, w: 0.3, h: 0.4, fill: { color: C.accent5 }, line: { color: C.accent5 }, objectName: "Arrow" });
+s.addShape(pres.ShapeType.rect, { x: 10.8, y: 1.6, w: 1.93, h: 4.0, fill: { color: C.accent1 }, line: { color: C.accent1 }, objectName: "Goal" });
+s.addText([{ text: "IT診断\nサービス", options: { fontSize: 20, bold: true, breakLine: true } }, { text: "2〜3カ月の診断へ", options: { fontSize: 13 } }], { x: 10.8, y: 1.6, w: 1.93, h: 4.0, color: C.background1, align: "center", valign: "middle", margin: 0.1, isTextBox: true });
+s.addText("同じホワイトペーパーを、Webでは集客に、営業の場では会話の道具に使います。営業用の版（NO項目＝診断の仮説）も用意します。", { x: 0.6, y: 5.95, w: 12.1, h: 0.8, fontSize: 16, bold: true, color: C.text2, margin: 0, valign: "top", isTextBox: true });
 
 // 4 mapping
 s = slide("悩みとIT診断の8領域を対応づける", "狙いと全体像");
@@ -98,25 +103,27 @@ s.addText("仮タイトル：「経営層のための IT健康診断チェック
   s.addText(r[0], { x: 1.35, y, w: 5.9, h: 0.55, fontSize: 15, color: C.text1, margin: 0, valign: "middle", isTextBox: true });
   s.addText(r[1], { x: 7.2, y, w: 0.9, h: 0.55, fontSize: 14, bold: true, color: C.accent5, margin: 0, valign: "middle", align: "right", isTextBox: true });
 });
-card(s, 8.6, 2.0, 4.1, 4.2, "仕様（案）", bullets(["ボリューム：12〜16ページ", "所要時間：約10分", "回答形式：YES/NO", "設問数：21問（3軸×7問）", "出力：軸別スコアと判定", "別版：営業用ヒアリングシート"]), { bs: 15 });
+card(s, 8.6, 2.0, 4.1, 4.2, "仕様（案）", bullets(["ボリューム：12〜16ページ", "所要時間：約10分", "回答形式：YES/NO", "設問数：21問（3軸×7問）", "出力：総合スコアと軸別の内訳", "別版：営業用ヒアリングシート"]), { bs: 15 });
 
 // 6 scoring
-s = slide("チェックリストはYES/NOで答え、軸別に点数化する", "ホワイトペーパー");
+s = slide("YES/NOで答え、総合スコアと内訳で見せる", "ホワイトペーパー");
 [["21問", "3軸×7問"], ["10分", "回答の目安"], ["YES=1点", "NO=0点"]].forEach((k, i) => {
   const x = 0.6 + i * 4.1;
   s.addShape(pres.ShapeType.rect, { x, y: 1.45, w: 3.9, h: 1.5, fill: { color: C.background2 }, line: { color: C.background2 }, objectName: "Stat" });
   s.addText(k[0], { x, y: 1.5, w: 3.9, h: 0.95, fontSize: 40, bold: true, color: C.accent1, align: "center", valign: "middle", margin: 0, isTextBox: true });
   s.addText(k[1], { x, y: 2.4, w: 3.9, h: 0.45, fontSize: 14, color: C.text1, align: "center", valign: "middle", margin: 0, isTextBox: true });
 });
-s.addText("軸ごとの判定（各7点満点）", { x: 0.6, y: 3.25, w: 6, h: 0.45, fontSize: 18, bold: true, color: C.text2, margin: 0, isTextBox: true });
-[["5〜7点", "良好", C.accent3, C.text1], ["3〜4点", "要注意", C.accent2, C.background1], ["0〜2点", "要対応", C.accent1, C.background1]].forEach((j, i) => {
+s.addText("総合スコアの判定（21点満点）", { x: 0.6, y: 3.2, w: 6, h: 0.45, fontSize: 18, bold: true, color: C.text2, margin: 0, isTextBox: true });
+[["17〜21点", "良好", C.accent3, C.text1], ["11〜16点", "要注意", C.accent2, C.background1], ["0〜10点", "要対応", C.accent1, C.background1]].forEach((j, i) => {
   const x = 0.6 + i * 2.1;
-  s.addShape(pres.ShapeType.rect, { x, y: 3.8, w: 1.95, h: 1.4, fill: { color: j[2] }, line: { color: j[2] }, objectName: "Grade" });
-  s.addText(j[0], { x, y: 3.9, w: 1.95, h: 0.6, fontSize: 20, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
-  s.addText(j[1], { x, y: 4.5, w: 1.95, h: 0.5, fontSize: 16, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addShape(pres.ShapeType.rect, { x, y: 3.75, w: 1.95, h: 1.2, fill: { color: j[2] }, line: { color: j[2] }, objectName: "Grade" });
+  s.addText(j[0], { x, y: 3.8, w: 1.95, h: 0.6, fontSize: 20, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addText(j[1], { x, y: 4.35, w: 1.95, h: 0.5, fontSize: 16, bold: true, color: j[3], align: "center", valign: "middle", margin: 0, isTextBox: true });
 });
-s.addText("点数の区切りは暫定です。実際の診断案件の傾向をもとに調整します。", { x: 0.6, y: 5.4, w: 6.2, h: 0.5, fontSize: 12, color: C.accent5, margin: 0, valign: "top", isTextBox: true });
-card(s, 7.0, 3.25, 5.7, 3.4, "設計のポイント", bullets(["YES/NOで迷わないよう、設問は「文書がある」「直近1年以内に見直した」など事実で判定できる書き方にする", "見せるのは合計点より軸別の結果。何が弱いかが分かる", "致命的な項目（IT-BCP未整備など）がNOなら、点数に関係なく「最優先の確認事項」として警告する"]), { bs: 14 });
+s.addShape(pres.ShapeType.rect, { x: 0.6, y: 5.15, w: 6.2, h: 1.1, fill: { color: "FFFFFF" }, line: { color: C.accent6, width: 1 }, objectName: "Example" });
+s.addText([{ text: "結果の見え方（例）", options: { bold: true, color: C.accent1, breakLine: true } }, { text: "総合 12点／21点（要注意）。内訳は、投資 3/7、リスク 5/7、競争力 4/7", options: { color: C.text1 } }], { x: 0.8, y: 5.2, w: 5.8, h: 1.0, fontSize: 14, margin: 0, valign: "middle", isTextBox: true });
+s.addText("点数の区切りは暫定です。実際の診断案件の傾向をもとに調整します。", { x: 0.6, y: 6.35, w: 6.2, h: 0.4, fontSize: 12, color: C.accent5, margin: 0, valign: "top", isTextBox: true });
+card(s, 7.0, 3.2, 5.7, 3.55, "設計のポイント", bullets(["YES/NOで迷わないよう、設問は「文書がある」「直近1年以内に見直した」など事実で判定できる書き方にする", "まず総合スコアで現在地を一言で伝え、軸別の内訳で弱い所を示す", "致命的な項目（IT-BCP未整備など）がNOなら、点数に関係なく「最優先の確認事項」として警告する"]), { bs: 14 });
 
 // 7 sample questions
 s = slide("設問のイメージ（全21問のうち9問）", "ホワイトペーパー");
@@ -138,20 +145,20 @@ s.addText("すべて「YES／NO」で回答します。", { x: 0.6, y: 6.7, w: 8
 pres.addSection({ title: "流入コラム" });
 s = slide("流入コラム案：出口は「チェックリストで現在地を確認」", "流入コラム");
 const rows = [
-  ["#", "悩み", "仮タイトル", "狙う検索意図"],
-  ["1", "投資", "IT投資の効果を経営に説明できない本当の理由と、投資対効果の考え方", "IT投資 効果測定、IT投資 ROI"],
-  ["2", "投資", "取締役会・経営会議で承認されるIT投資計画の作り方", "IT投資計画、IT中期計画"],
-  ["3", "リスク", "経営者が押さえるべきITリスク5分類", "ITリスク 経営、IT統制"],
-  ["4", "リスク", "IT-BCPとは？「止まったらどうなるか」を経営が答えられるか", "IT-BCP とは、システム停止 事業影響"],
-  ["5", "競争力", "DXで他社に後れを取っているか？経営層向け自己チェックの観点", "DX 遅れ、DX 自社 評価"],
-  ["6", "競争力", "IT戦略と経営戦略がつながらない会社に共通する3つの症状", "IT戦略 策定、IT戦略 経営戦略"],
-  ["α", "全体", "「IT診断」とは何か：やること、期間、費用感の考え方", "IT診断 とは、IT診断 コンサル"],
+  ["#", "悩み", "仮タイトル", "狙うキーワード（月間検索数）"],
+  ["1", "投資", "IT投資の効果を経営に説明できない本当の理由と、投資対効果の考え方", "IT投資 250 ／ IT投資とは 150 ／ IT投資 事例 150"],
+  ["2", "投資", "取締役会・経営会議で承認されるIT投資計画の作り方", "IT投資管理 70 ／ IT投資予算 60"],
+  ["3", "リスク", "経営者が押さえるべきITリスク5分類", "IT統制 400 ／ IT全般統制 250 ／ ITリスク 100"],
+  ["4", "リスク", "IT-BCPとは？「止まったらどうなるか」を経営が答えられるか", "IT-BCP 700 ／ BCP システム 100"],
+  ["5", "競争力", "DXで他社に後れを取っているか？経営層向け自己チェックの観点", "DX 遅れ 100 ／ DX推進指標 100 ／ DX 日本 遅れ 40"],
+  ["6", "競争力", "IT戦略と経営戦略がつながらない会社に共通する3つの症状", "IT戦略 500 ／ IT戦略 策定 10"],
+  ["α", "全体", "「IT診断」とは何か：やること、期間、費用感の考え方", "IT診断 60 ／ IT健康診断 10"],
 ];
 s.addTable(rows.map((r, i) => r.map((t, j) => i === 0
   ? { text: t, options: { bold: true, color: "FFFFFF", fill: { color: THEME.colors.dk2 }, fontSize: 13, valign: "middle", align: j < 2 ? "center" : "left" } }
   : { text: t, options: { fontSize: 13, valign: "middle", color: THEME.colors.dk1, align: j < 2 ? "center" : "left", bold: j === 1 } }
-)), { x: 0.6, y: 1.4, w: 12.1, colW: [0.6, 1.2, 6.6, 3.7], rowH: [0.5, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58], border: { type: "solid", pt: 1, color: "D9DDE3" }, fill: { color: "FFFFFF" } });
-s.addText("各コラムの末尾に、該当軸の設問を2〜3問だけ抜粋して掲載し、WPの中身を想像できるようにします。検索意図は想定で、キーワード調査で検証します。", { x: 0.6, y: 6.2, w: 12.1, h: 0.7, fontSize: 13, color: C.text2, bold: true, margin: 0, valign: "top", isTextBox: true });
+)), { x: 0.6, y: 1.4, w: 12.1, colW: [0.5, 1.0, 5.3, 5.3], rowH: [0.5, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58, 0.58], border: { type: "solid", pt: 1, color: "D9DDE3" }, fill: { color: "FFFFFF" } });
+s.addText("検索数はAhrefs（日本、2026年10月時点）。実施可否ではなく、タイトルとキーワードの選定に使います。各コラムの末尾に該当軸の設問を2〜3問抜粋し、WPの中身を想像できるようにします。", { x: 0.6, y: 6.2, w: 12.1, h: 0.7, fontSize: 13, color: C.text2, bold: true, margin: 0, valign: "top", isTextBox: true });
 
 // 9 roadmap
 pres.addSection({ title: "進め方" });
